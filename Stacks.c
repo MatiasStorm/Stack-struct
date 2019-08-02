@@ -9,7 +9,7 @@ typedef struct stackElem{
 }stackElem;
 
 
-stackElem* init__stackElem(int val){
+stackElem* initStackElem(int val){
   stackElem *elem;
   elem = (stackElem*) malloc(sizeof(stackElem));
   elem->val = val;
@@ -22,7 +22,7 @@ typedef struct stack{
 }stack;
 
 
-stack* init__stack(){
+stack* initStack(){
   stack *s;
   s = (stack*) malloc(sizeof( stack));
   s->top = NULL;
@@ -30,7 +30,7 @@ stack* init__stack(){
 } 
 
 void push(stack *s, int val){
-  stackElem *elem = init__stackElem(val);
+  stackElem *elem = initStackElem(val);
   if(s->top == NULL){
     s->top = elem;
   }
@@ -60,31 +60,28 @@ bool isEmpty(stack *s){
 
 void printStack(stack *s){
   stackElem *x = s->top;
-  // printf("here");
   printf("[%d, ", x->val);
-  while(x->next != NULL){
-    printf("%d, ", x->val);
+  
+  do {
     x = x->next;
-  }
-  printf("%d]",x->val);
+    printf("%d, ", x->val);
+  } while(x->next->next != NULL);
+  
+  printf("%d]", x->next->val);
 }
 
 
 int main(){
-  stack *s = init__stack();
+  stack *s = initStack();
   push(s, 2);
   push(s, -1);
   push(s, 5);
   push(s, 6);
   push(s, 7);
   printf("POP: %d\n", pop(s));
+  printf("Peek: %d\n", peek(s));
+  printf("The stack: ");
   printStack(s);
   
   return 0;
 }
-
-
-
-
-
-
